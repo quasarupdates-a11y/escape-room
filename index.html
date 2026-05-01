@@ -2,27 +2,33 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>La Llama Perdura</title>
+<title>La Llama Persistente</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
     body {
         background-color: #0b0b0b;
         color: #e6e6e6;
-        font-family: "Georgia", serif;
+        font-family: 'Cinzel', serif;
         text-align: center;
         padding: 40px;
     }
+
     h1 {
         color: #ff4d2d;
         font-size: 2.5em;
     }
+
     .box {
         max-width: 700px;
         margin: auto;
-        background: rgba(20,20,20,0.8);
+        background: rgba(20,20,20,0.85);
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 80, 50, 0.2);
+        box-shadow: 0 0 25px rgba(255, 80, 50, 0.25);
     }
+
     button {
         margin-top: 20px;
         padding: 12px 25px;
@@ -32,14 +38,17 @@
         color: white;
         cursor: pointer;
         border-radius: 5px;
+        font-family: 'Cinzel', serif;
     }
+
     button:hover {
         background-color: #ff2a00;
     }
-    #pista {
+
+    #cuenta {
         margin-top: 20px;
+        font-size: 22px;
         display: none;
-        font-style: italic;
     }
 </style>
 </head>
@@ -54,25 +63,41 @@
     aún queda algo que no ha sido consumido.
     </p>
 
-    <p>
-    Un vínculo.
-    </p>
+    <p>Un vínculo.</p>
 
     <p>
     Has sido llamado a emprender un viaje. No por gloria… sino por aquello que ha resistido mil días.
     </p>
 
-    <button onclick="mostrarPista()">Despertar la espada</button>
+    <button onclick="iniciarCuenta()">Aceptar el destino</button>
 
-    <p id="pista">
-    “La espada no revela su secreto a simple vista.<br><br>
-    Solo cuando la luz la atraviesa… la verdad aparece.”
-    </p>
+    <p id="cuenta"></p>
 </div>
 
 <script>
-function mostrarPista() {
-    document.getElementById("pista").style.display = "block";
+function iniciarCuenta() {
+    document.getElementById("cuenta").style.display = "block";
+
+    var objetivo = new Date("May 26, 2026 00:00:00").getTime();
+
+    var intervalo = setInterval(function() {
+        var ahora = new Date().getTime();
+        var distancia = objetivo - ahora;
+
+        var dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        var horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        var segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        document.getElementById("cuenta").innerHTML =
+            dias + "d " + horas + "h " + minutos + "m " + segundos + "s";
+
+        if (distancia < 0) {
+            clearInterval(intervalo);
+            document.getElementById("cuenta").innerHTML =
+                "Han pasado 1000 días… y esto es para ti.";
+        }
+    }, 1000);
 }
 </script>
 
